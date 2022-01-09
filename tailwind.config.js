@@ -1,7 +1,14 @@
 module.exports = {
   content: ["./src/**/*.{html,tsx}"],
   theme: {
-    extend: {},
+    fontFamily: {
+      mono: "IBM Plex Mono",
+    },
+    extend: {
+      colors: {
+        "p-black": "#1F1F1F",
+      },
+    },
   },
   plugins: [],
 };
