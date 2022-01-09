@@ -1,12 +1,12 @@
 import React from "react";
-import Button from "../Button";
+import ConnectButton from "../ConnectButton";
 
 interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
   return (
     <header className="fixed top-4 right-4 flex">
-      <Button>Connect Wallet</Button>
+      <ConnectButton hideConnected />
     </header>
   );
 };
