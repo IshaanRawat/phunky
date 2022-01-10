@@ -27,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "yarn build-css && yarn build",
+    "predeploy": "rm -rf node_modules/.cache/gh-pages && yarn build-css && yarn build",
     "deploy": "gh-pages -d build",
     "watch-css": "npx tailwindcss -i ./src/styles/style.css -o ./src/styles/main.css --watch",
     "build-css": "npx tailwindcss -i ./src/styles/style.css -o ./src/styles/main.css --minify"
