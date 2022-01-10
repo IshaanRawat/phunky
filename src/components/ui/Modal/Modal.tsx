@@ -9,7 +9,7 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ children, title, close }) => {
   return (
     <Portal>
-      <section className="fixed font-mono w-screen h-full overflow-auto max-h-screen z-50 left-0 top-0 backdrop-brightness-50 flex flex-col items-center justify-center">
+      <section className="fixed font-mono w-screen h-full overflow-auto max-h-screen z-50 left-0 top-0 bg-opacity-70 bg-p-black flex flex-col items-center justify-center">
         {close && (
           <section
             className="fixed top-0 left-0 w-full h-screen"
