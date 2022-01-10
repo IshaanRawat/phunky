@@ -237,7 +237,7 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
           <div className="flex flex-col p-4">
             <a
               className="p-2 pb-4 flex items-center"
-              href="https://notlarvalabs.com/"
+              href="https://discord.gg/n87cH5Fk7m"
               target="_blank"
               rel="noreferrer"
             >
@@ -277,7 +277,7 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
             </a>
             <a
               className="p-2 pt-4 flex items-center border-t border-gray-600"
-              href="https://notlarvalabs.com/"
+              href="https://discord.gg/ckv3ZP4BVQ"
               target="_blank"
               rel="noreferrer"
             >
