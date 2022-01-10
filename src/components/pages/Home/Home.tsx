@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useMetaMask from "../../../hooks/useMetaMask";
 import usePhunksV2Contract from "../../../hooks/usePhunksV2Contract";
 import usePhunkyContract from "../../../hooks/usePhunkyContract";
@@ -13,6 +13,7 @@ const Home: React.FC<HomeProps> = () => {
   const phunkyContract = usePhunkyContract();
   const phunksV2Contract = usePhunksV2Contract();
 
+  const claimSectionRef = useRef<HTMLElement>(null);
   const [claimablePhunkies, setClaimablePhunkies] = useState<
     Array<{ phunkId: string; claimablePhunkies: number }>
   >([]);
@@ -76,6 +77,10 @@ const Home: React.FC<HomeProps> = () => {
     }
   };
 
+  const goToClaim = () => {
+    claimSectionRef.current?.scrollIntoView();
+  };
+
   return (
     <main className="flex flex-col items-center px-4">
       <section className="flex flex-col items-center">
@@ -84,17 +89,9 @@ const Home: React.FC<HomeProps> = () => {
           Governance Token for decentralization battles against centralizing
           forces in the web3 world.
         </p>
-        <div className="relative w-content h-12 overflow-visible pt-2 mt-10">
-          <a
-            className="block bg-shifter px-6 py-3 text-white font-semibold flex items-center relative z-10 -top-4 -left-2 active:-top-2 active:-left-1 flex items-center"
-            href="#claim"
-          >
-            Initiate Claim
-          </a>
-          <div className="bg-shifter absolute inset-0 p-1">
-            <div className="bg-p-black w-full h-full"></div>
-          </div>
-        </div>
+        <Button className="mt-10" onClick={goToClaim}>
+          Initiate Claim
+        </Button>
         <div className="flex items-center mt-8">
           <a
             className="mr-6"
@@ -136,7 +133,11 @@ const Home: React.FC<HomeProps> = () => {
           </a>
         </div>
       </section>
-      <section className="flex flex-col items-center pt-12 mt-36" id="claim">
+      <section
+        className="flex flex-col items-center pt-12 mt-36"
+        id="claim"
+        ref={claimSectionRef}
+      >
         <h2>Claim</h2>
         <div className="grid grid-cols-1 lg:grid-cols-7 lg:gap-4">
           <article className="flex flex-col items-center mt-12 lg:col-span-2">
