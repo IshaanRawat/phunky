@@ -15,6 +15,13 @@ type Chain = {
   blockExplorerUrls?: string[];
 };
 
+type AssetOptions = {
+  address: string;
+  symbol: string;
+  decimals: number;
+  image?: string;
+};
+
 const toNumber = (hex: string) => +new Web3().utils.hexToNumberString(hex);
 const toHex = new Web3().utils.toHex;
 
@@ -61,6 +68,30 @@ function useMetaMask() {
       }
     },
     [isConnected, ethereum]
+  );
+
+  const watchERC20Asset = useCallback(
+    async (assetOptions: AssetOptions) => {
+      try {
+        const wasAdded = await ethereum.request({
+          method: "wallet_watchAsset",
+          params: {
+            type: "ERC20",
+            options: assetOptions,
+          },
+        });
+
+        if (wasAdded) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
+    [ethereum]
   );
 
   const switchChain = useCallback(
@@ -145,6 +176,7 @@ function useMetaMask() {
     connect,
     addChain,
     switchChain,
+    watchERC20Asset,
   };
 }
 

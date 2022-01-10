@@ -5,6 +5,7 @@ import usePhunkyContract from "../../../hooks/usePhunkyContract";
 import { formatToDecimals } from "../../../utils";
 import Button from "../../ui/Button";
 import ConnectButton from "../../ui/ConnectButton";
+import { address } from "./../../../data/contracts/phunky.json";
 
 interface HomeProps {}
 
@@ -20,6 +21,8 @@ const Home: React.FC<HomeProps> = () => {
   const [totalPhunky, setTotalPhunky] = useState<number>(0);
   const [loadingEstimate, setLoadingEstimate] = useState<boolean>(true);
   const [loadingClaim, setLoadingClaim] = useState<boolean>(false);
+  const [loadingAdd, setLoadingAdd] = useState<boolean>(false);
+  const [assetAdded, setAssetAdded] = useState<boolean>(false);
   const [claimTransationHash, setClaimTransactionHash] = useState<string>("");
 
   useEffect(() => {
@@ -87,6 +90,24 @@ const Home: React.FC<HomeProps> = () => {
 
   const goToClaim = () => {
     claimSectionRef.current?.scrollIntoView();
+  };
+
+  const addPhunky = async () => {
+    if (phunkyContract) {
+      setLoadingAdd(true);
+      const decimals = await phunkyContract.methods.decimals().call();
+      const symbol = await phunkyContract.methods.symbol().call();
+      const assetOptions = {
+        address,
+        decimals: +decimals,
+        symbol,
+      };
+      const wasAdded = await wallet.watchERC20Asset(assetOptions);
+      if (wasAdded) {
+        setLoadingAdd(false);
+        setAssetAdded(true);
+      }
+    }
   };
 
   return (
@@ -270,8 +291,12 @@ const Home: React.FC<HomeProps> = () => {
               >
                 {loadingClaim ? " ... " : "Claim $PHUNKY"}
               </Button>
-              <Button disabled className="ml-4">
-                Add $PHUNKY
+              <Button
+                className="ml-4"
+                onClick={addPhunky}
+                disabled={assetAdded || loadingAdd}
+              >
+                {loadingAdd ? " ... " : "Add $PHUNKY"}
               </Button>
             </div>
             {loadingClaim && (
