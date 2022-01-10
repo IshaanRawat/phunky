@@ -1,5 +1,5 @@
 {
-  "address": "0x37aF26dE1903a4170D0A84E92Cbb67457b5516bc",
+  "address": "0x182F9B9dd05CAcB88ae5eAff011AC5454107f93C",
   "abi": [
     {
       "inputs": [
@@ -173,20 +173,6 @@
       "name": "claimed",
       "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "claimedTotal",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "createBlock",
-      "outputs": [],
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
