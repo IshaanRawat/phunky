@@ -5,6 +5,7 @@ import usePhunkyContract from "../../../hooks/usePhunkyContract";
 import { formatToDecimals } from "../../../utils";
 import Button from "../../ui/Button";
 import ConnectButton from "../../ui/ConnectButton";
+import PhunkCard from "../../ui/PhunkCard";
 import { address } from "./../../../data/contracts/phunky.json";
 
 interface HomeProps {}
@@ -115,15 +116,15 @@ const Home: React.FC<HomeProps> = () => {
       <section className="flex flex-col items-center">
         <h1>Introducing $PHUNKY</h1>
         <p className="mt-8 max-w-lg w-full text-center">
-          Governance Token for decentralization battles against centralizing
-          forces in the web3 world.
+          Whenever there is centralisation in the decentralized world, Phunks
+          will rise.
         </p>
         <Button className="mt-10" onClick={goToClaim}>
           Initiate Claim
         </Button>
         <div className="flex items-center mt-8">
           <a
-            className="mr-6"
+            className="mr-6 w-8 h-8"
             href="https://www.twitter.com"
             target="_blank"
             rel="noreferrer"
@@ -132,6 +133,7 @@ const Home: React.FC<HomeProps> = () => {
               width="32"
               height="32"
               viewBox="0 0 32 32"
+              className="max-w-full"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -142,7 +144,46 @@ const Home: React.FC<HomeProps> = () => {
             </svg>
           </a>
           <a
-            className="mr-6"
+            className="mr-6 w-8 h-8"
+            href="https://discord.gg/notlarvalabs"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <svg
+              className="max-w-full max-h-full"
+              width="298"
+              height="189"
+              preserveAspectRatio="xMidYMid meet"
+              viewBox="0 0 298 189"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <polygon
+                  id="Rectangle"
+                  fill="#ED1D24"
+                  points="298 139 210 139 210 189 298 189"
+                ></polygon>
+                <polygon
+                  id="Rectangle-Copy"
+                  fill="#81C342"
+                  points="140 139 0 139 0 189 140 189"
+                ></polygon>
+                <polygon
+                  id="Rectangle-Copy-2"
+                  fill="#F99D1C"
+                  points="140 0 90 0 90 129 140 129"
+                ></polygon>
+                <polygon
+                  id="Rectangle-Copy-3"
+                  fill="#0284CA"
+                  points="200 0 150 0 150 189 200 189"
+                ></polygon>
+              </g>
+            </svg>
+          </a>
+          <a
+            className="mr-6 w-8 h-8"
             href="https://www.discord.com"
             target="_blank"
             rel="noreferrer"
@@ -150,6 +191,7 @@ const Home: React.FC<HomeProps> = () => {
             <svg
               width="32"
               height="32"
+              className="max-w-full"
               viewBox="0 0 32 32"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +251,7 @@ const Home: React.FC<HomeProps> = () => {
                       {claimablePhunkies.map((claimablePhunky) => (
                         <tr key={claimablePhunky.phunkId}>
                           <td className="px-6 py-3 text-center">
-                            {claimablePhunky.phunkId}
+                            <PhunkCard tokenId={claimablePhunky.phunkId} />
                           </td>
                           <td className="px-6 py-3 text-center">
                             {claimablePhunky.claimablePhunkies.toFixed(4)}
@@ -313,19 +355,20 @@ const Home: React.FC<HomeProps> = () => {
         <article className="flex flex-col items-center mt-12">
           <p className="max-w-xl w-full text-center">
             All Phunks earn $PHUNKY forever. Distribution rate halves every year
-            and aims to be closer to 21 Million $PHUNKY in long term, taking a
-            close stand to Bitcoin and the first decentralized ecosystem.
+            and aims to be approximately 21 Million $PHUNKY in the long term,
+            taking a close stand to Bitcoin and the first decentralized
+            ecosystem.
           </p>
           <p className="mt-8 max-w-xl w-full text-center">
             We expect Phunks to stand for decentralization & individual freedom.
-            As centralization forces try to take a bigger chunk from the web3
-            world, Phunks will support endeavours that make the web3 future
-            free, open and inclusive for all.
+            As centralization forces try to take a more significant chunk from
+            the web3 world, Phunks will support endeavours that make the web3
+            future free, open and inclusive for all.
           </p>
           <p className="mt-8 max-w-xl w-full text-center">
             There is no pre-mined or distributed $PHUNKY. Whenever any Phunk
-            holder claims $PHUNKY. 90% is distributed to him, 9% is granted to
-            Phunk DAO treasury, and 1% is rewarded to creators of $PHUNKY.
+            holder claims $PHUNKY, they receive 90%, 9% of it is kept into Phunk
+            DAO treasury, and creators receive 1% of $PHUNKY.
           </p>
           <figure className="mt-12">
             <svg
@@ -417,20 +460,21 @@ const Home: React.FC<HomeProps> = () => {
           </figure>
         </article>
         <article className="flex flex-col items-center mt-12">
-          <h3>PhunkDAO</h3>
+          <h3>Phunk DAO</h3>
           <p className="mt-8 max-w-xl w-full text-center">
-            PhunkDAO is governed by $PHUNKY. DAO will decide on the governance
-            of treasury, but we expect it to be in line with Phunk vision and
+            Phunk DAO is governed by $PHUNKY. DAO will decide on treasury
+            governance, but we expect it to align with Phunk&apos;s vision and
             growth of decentralization.
           </p>
         </article>
         <article className="flex flex-col items-center mt-12">
           <h3>Why Phunky?</h3>
           <p className="mt-8 max-w-xl w-full text-center">
-            It&apos;s natural for user convenience or other benefits that newer
-            technologies tend to be centralized. $PHUNKY will empower phunks to
-            take a stand. Whenever there will be centralization in the
-            decentralized world, Phunks will rise.
+            It&apos;s natural for user convenience or other reasons that newer
+            technologies tend to become centralized. $PHUNKY will empower phunks
+            to coordinate, collaborate and take a stand for building the future
+            vision. Whenever there is centralisation in the decentralized world,
+            Phunks will rise.
           </p>
         </article>
       </section>
