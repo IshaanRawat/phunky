@@ -82,8 +82,6 @@ const Home: React.FC<HomeProps> = () => {
       console.log(txn);
       setClaimTransactionHash(txn.transactionHash);
       setLoadingClaim(false);
-      setClaimablePhunkies([]);
-      setTotalPhunky(0);
     }
   };
 
@@ -162,48 +160,62 @@ const Home: React.FC<HomeProps> = () => {
                   Fetching your Phunks ...
                 </p>
               ) : claimablePhunkies.length > 0 ? (
-                <table className="min-w-full divide-y divide-gray-200 mt-8">
-                  <thead>
-                    <tr>
-                      <th scope="col" className="px-6 py-3 text-center">
-                        Phunk
-                      </th>
-                      <th scope="col" className="px-6 py-3 text-center">
-                        Claimable $PHUNKY
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {claimablePhunkies.map((claimablePhunky) => (
-                      <tr key={claimablePhunky.phunkId}>
-                        <td className="px-6 py-3 text-center">
-                          {claimablePhunky.phunkId}
+                claimTransationHash !== "" ? (
+                  <div className="flex flex-col items-center mt-8 justify-center">
+                    <p>Claim requested successfully.</p>
+                    <a
+                      className="underline font-semibold underline-offset-4 mt-2"
+                      href={`https://rinkeby.etherscan.io/tx/${claimTransationHash}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      View Claim Transaction
+                    </a>
+                  </div>
+                ) : (
+                  <table className="min-w-full divide-y divide-gray-200 mt-8">
+                    <thead>
+                      <tr>
+                        <th scope="col" className="px-6 py-3 text-center">
+                          Phunk
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-center">
+                          Claimable $PHUNKY
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {claimablePhunkies.map((claimablePhunky) => (
+                        <tr key={claimablePhunky.phunkId}>
+                          <td className="px-6 py-3 text-center">
+                            {claimablePhunky.phunkId}
+                          </td>
+                          <td className="px-6 py-3 text-center">
+                            {claimablePhunky.claimablePhunkies.toFixed(4)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td className="px-6 py-3 text-center font-semibold">
+                          Total
                         </td>
-                        <td className="px-6 py-3 text-center">
-                          {claimablePhunky.claimablePhunkies.toFixed(4)}
+                        <td className="px-6 py-3 text-center font-semibold">
+                          {totalPhunky.toFixed(4)} $PHUNKY
                         </td>
                       </tr>
-                    ))}
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <td className="px-6 py-3 text-center font-semibold">
-                        Total
-                      </td>
-                      <td className="px-6 py-3 text-center font-semibold">
-                        {totalPhunky.toFixed(4)} $PHUNKY
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-3 text-center font-semibold">
-                        Total Claimable
-                      </td>
-                      <td className="px-6 py-3 text-center font-semibold">
-                        {((totalPhunky * 90) / 100).toFixed(4)} $PHUNKY
-                      </td>
-                    </tr>
-                  </tfoot>
-                </table>
+                      <tr>
+                        <td className="px-6 py-3 text-center font-semibold">
+                          Total Claimable
+                        </td>
+                        <td className="px-6 py-3 text-center font-semibold">
+                          {((totalPhunky * 90) / 100).toFixed(4)} $PHUNKY
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                )
               ) : (
                 <p className="mt-8 max-w-xl w-full text-center">
                   You need a Phunk. Buy from{" "}
@@ -250,7 +262,8 @@ const Home: React.FC<HomeProps> = () => {
                   loadingEstimate ||
                   loadingClaim ||
                   !wallet.isConnected ||
-                  !totalPhunky
+                  !totalPhunky ||
+                  claimTransationHash !== ""
                 }
                 className="mr-4"
                 onClick={claimPhunkies}
@@ -261,16 +274,10 @@ const Home: React.FC<HomeProps> = () => {
                 Add $PHUNKY
               </Button>
             </div>
-            {claimTransationHash !== "" && (
-              <div className="flex items-center mt-8 justify-center">
-                <a
-                  className="underline font-semibold underline-offset-4"
-                  href={`https://rinkeby.etherscan.io/tx/${claimTransationHash}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View Claim Transaction
-                </a>
+            {loadingClaim && (
+              <div className="flex flex-col items-center mt-8 justify-center">
+                <p className="text-center font-semibold">Please wait...</p>
+                <p className="text-center">This may take some time.</p>
               </div>
             )}
           </article>
