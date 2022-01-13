@@ -59,17 +59,11 @@ const EstimatedPhunksList: React.FC<EstimatedPhunksListProps> = () => {
           </tbody>
           <tfoot>
             <tr>
-              <td className="px-6 py-3 text-center font-semibold">Total</td>
-              <td className="px-6 py-3 text-center font-semibold">
-                {totalPhunky.toFixed(4)} $PHUNKY
-              </td>
-            </tr>
-            <tr>
               <td className="px-6 py-3 text-center font-semibold">
                 Total Claimable
               </td>
               <td className="px-6 py-3 text-center font-semibold">
-                {((totalPhunky * 90) / 100).toFixed(4)} $PHUNKY
+                {totalPhunky.toFixed(4)} $PHUNKY
               </td>
             </tr>
           </tfoot>
