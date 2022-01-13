@@ -34,45 +34,7 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
             />
           </svg>
         </a>
-        <a
-          className="mr-6 w-8 h-8"
-          href="https://notlarvalabs.com/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <svg
-            className="max-w-full max-h-full"
-            width="298"
-            height="189"
-            preserveAspectRatio="xMidYMid meet"
-            viewBox="0 0 298 189"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-              <polygon
-                id="Rectangle"
-                fill="#ED1D24"
-                points="298 139 210 139 210 189 298 189"
-              ></polygon>
-              <polygon
-                id="Rectangle-Copy"
-                fill="#81C342"
-                points="140 139 0 139 0 189 140 189"
-              ></polygon>
-              <polygon
-                id="Rectangle-Copy-2"
-                fill="#F99D1C"
-                points="140 0 90 0 90 129 140 129"
-              ></polygon>
-              <polygon
-                id="Rectangle-Copy-3"
-                fill="#0284CA"
-                points="200 0 150 0 150 189 200 189"
-              ></polygon>
-            </g>
-          </svg>
-        </a>
+
         <button className="mr-6 w-8 h-8" onClick={toggleDiscordLinksModal}>
           <svg
             width="32"
@@ -194,8 +156,47 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
           </svg>
         </a>
         <a
+          className="mr-6 w-8 h-8"
+          href="https://notlarvalabs.com/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <svg
+            className="max-w-full max-h-full"
+            width="298"
+            height="189"
+            preserveAspectRatio="xMidYMid meet"
+            viewBox="0 0 298 189"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+              <polygon
+                id="Rectangle"
+                fill="#ED1D24"
+                points="298 139 210 139 210 189 298 189"
+              ></polygon>
+              <polygon
+                id="Rectangle-Copy"
+                fill="#81C342"
+                points="140 139 0 139 0 189 140 189"
+              ></polygon>
+              <polygon
+                id="Rectangle-Copy-2"
+                fill="#F99D1C"
+                points="140 0 90 0 90 129 140 129"
+              ></polygon>
+              <polygon
+                id="Rectangle-Copy-3"
+                fill="#0284CA"
+                points="200 0 150 0 150 189 200 189"
+              ></polygon>
+            </g>
+          </svg>
+        </a>
+        <a
           className="w-8 h-8"
-          href="https://www.twitter.com"
+          href="https://looksrare.org/collections/0xf07468eAd8cf26c752C676E43C814FEe9c8CF402#items"
           target="_blank"
           rel="noreferrer"
         >
