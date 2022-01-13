@@ -1,107 +1,82 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import usePhunky from "../../../context/phunky";
 import useMetaMask from "../../../hooks/useMetaMask";
-import usePhunksV2Contract from "../../../hooks/usePhunksV2Contract";
-import usePhunkyContract from "../../../hooks/usePhunkyContract";
-import { formatToDecimals } from "../../../utils";
+import PhunkCard from "../PhunkCard";
+import { TRANSACTION_URL } from "./../../../data/constants.json";
 
 interface EstimatedPhunksListProps {}
 
 const EstimatedPhunksList: React.FC<EstimatedPhunksListProps> = () => {
-  const wallet = useMetaMask();
-  const phunkyContract = usePhunkyContract();
-  const phunksV2Contract = usePhunksV2Contract();
+  const { isConnected } = useMetaMask();
+  const {
+    loadingEstimate,
+    claimablePhunkies,
+    claimTransationHash,
+    totalPhunky,
+  } = usePhunky();
 
-  const [claimablePhunkies, setClaimablePhunkies] = useState<
-    Array<{ phunkId: string; claimablePhunkies: number }>
-  >([]);
-  const [totalPhunky, setTotalPhunky] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    if (wallet.isConnected && phunksV2Contract && phunkyContract) {
-      (async () => {
-        setLoading(true);
-        const balance = await phunksV2Contract.methods
-          .balanceOf(wallet.address)
-          .call();
-        const balanceArray: any[] = Array.from({ length: balance });
-        const phunkTokens = await Promise.all(
-          balanceArray.map((b: number, i: number) =>
-            phunksV2Contract.methods
-              .tokenOfOwnerByIndex(wallet.address, i)
-              .call()
-          )
-        );
-        const decimals = await phunkyContract.methods.decimals().call();
-        const claimableTokens: string[] = await Promise.all(
-          phunkTokens.map((token) =>
-            phunkyContract.methods.claimable(token).call()
-          )
-        );
-        const _claimablePhunkies: number[] = claimableTokens.map(
-          (tokens) => +formatToDecimals(tokens, decimals)
-        );
-        setTotalPhunky(_claimablePhunkies.reduce((a, b) => a + b));
-        setClaimablePhunkies(
-          phunkTokens.map((token, index) => {
-            return {
-              phunkId: token,
-              claimablePhunkies: _claimablePhunkies[index],
-            };
-          })
-        );
-        setLoading(false);
-      })();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wallet.isConnected]);
-
-  return wallet.isConnected ? (
-    loading ? (
-      <p className="mt-8 max-w-xl text-center">Fetching your Phunks ...</p>
+  return isConnected ? (
+    loadingEstimate ? (
+      <p className="mt-8 max-w-xl w-full text-center">
+        Fetching your Phunks ...
+      </p>
     ) : claimablePhunkies.length > 0 ? (
-      <table className="min-w-full divide-y divide-gray-200 mt-8">
-        <thead>
-          <tr>
-            <th scope="col" className="px-6 py-3 text-center">
-              Phunk
-            </th>
-            <th scope="col" className="px-6 py-3 text-center">
-              Claimable $PHUNKY
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {claimablePhunkies.map((claimablePhunky) => (
-            <tr key={claimablePhunky.phunkId}>
-              <td className="px-6 py-3 text-center">
-                {claimablePhunky.phunkId}
-              </td>
-              <td className="px-6 py-3 text-center">
-                {claimablePhunky.claimablePhunkies}
+      claimTransationHash !== "" ? (
+        <div className="flex flex-col items-center mt-8 justify-center">
+          <p>Claim requested successfully.</p>
+          <a
+            className="underline font-semibold underline-offset-4 mt-2"
+            href={`${TRANSACTION_URL}${claimTransationHash}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            View Claim Transaction
+          </a>
+        </div>
+      ) : (
+        <table className="min-w-full divide-y divide-gray-200 mt-8">
+          <thead>
+            <tr>
+              <th scope="col" className="px-6 py-3 text-center">
+                Phunk
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Claimable $PHUNKY
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {claimablePhunkies.map((claimablePhunky) => (
+              <tr key={claimablePhunky.phunkId}>
+                <td className="px-6 py-3 text-center">
+                  <PhunkCard tokenId={claimablePhunky.phunkId} />
+                </td>
+                <td className="px-6 py-3 text-center">
+                  {claimablePhunky.claimablePhunkies.toFixed(4)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td className="px-6 py-3 text-center font-semibold">Total</td>
+              <td className="px-6 py-3 text-center font-semibold">
+                {totalPhunky.toFixed(4)} $PHUNKY
               </td>
             </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td className="px-6 py-3 text-center font-semibold">Total</td>
-            <td className="px-6 py-3 text-center font-semibold">
-              {totalPhunky} $PHUNKY
-            </td>
-          </tr>
-          <tr>
-            <td className="px-6 py-3 text-center font-semibold">
-              Total Claimable
-            </td>
-            <td className="px-6 py-3 text-center font-semibold">
-              {(totalPhunky * 90) / 100} $PHUNKY
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+            <tr>
+              <td className="px-6 py-3 text-center font-semibold">
+                Total Claimable
+              </td>
+              <td className="px-6 py-3 text-center font-semibold">
+                {((totalPhunky * 90) / 100).toFixed(4)} $PHUNKY
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      )
     ) : (
-      <p className="mt-8 max-w-xl text-center">
+      <p className="mt-8 max-w-xl w-full text-center">
         You need a Phunk. Buy from{" "}
         <a
           className="font-bold"
@@ -116,7 +91,7 @@ const EstimatedPhunksList: React.FC<EstimatedPhunksListProps> = () => {
       </p>
     )
   ) : (
-    <p className="mt-8 max-w-xl text-center">
+    <p className="mt-8 max-w-xl w-full text-center">
       Connect your wallet and check for all the claimable Phunks.
     </p>
   );

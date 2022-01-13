@@ -19,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <div className={classNames}>
       <button
-        className={`${backgroundClass} px-6 py-3 text-white font-semibold flex items-center relative z-10 -top-4 -left-2 active:-top-2 active:-left-1 flex items-center disabled:top-0 disabled:left-0`}
+        className={`${backgroundClass} px-6 py-3 text-white font-semibold flex items-center relative z-10 -top-4 -left-2 active:-top-2 active:-left-1 flex items-center disabled:-top-4 disabled:-left-2`}
         onClick={onClick}
         disabled={disabled}
       >
