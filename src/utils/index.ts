@@ -14,4 +14,7 @@ const formatToDecimals = (numberString: string, decimals: number) => {
 
 const formatTokenId = (tokenId: string) => tokenId.padStart(4, "0");
 
-export { formatToDecimals, formatTokenId };
+const formatAddress = (address: string) =>
+  `${address.slice(0, 4)}...${address.slice(address.length - 4)}`;
+
+export { formatToDecimals, formatTokenId, formatAddress };
