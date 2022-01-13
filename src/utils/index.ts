@@ -12,4 +12,6 @@ const formatToDecimals = (numberString: string, decimals: number) => {
   return reverseString(reversedNumberString);
 };
 
-export { formatToDecimals };
+const formatTokenId = (tokenId: string) => tokenId.padStart(4, "0");
+
+export { formatToDecimals, formatTokenId };
