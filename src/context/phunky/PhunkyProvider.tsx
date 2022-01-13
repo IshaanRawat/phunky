@@ -76,25 +76,28 @@ const PhunkyProvider: React.FC<PhunkyProviderProps> = ({ children }) => {
 
   const claimPhunkies = async () => {
     if (phunkyContract) {
-      setClaimTransactionHash("");
-      setLoadingClaim(true);
-      const claimablePhunks = claimablePhunkies
-        .filter((c) => c.claimablePhunkies > 0)
-        .map((c) => +c.phunkId);
-      const approxGas = await phunkyContract.methods
-        .claimBatch(claimablePhunks)
-        .estimateGas({ from: wallet.address });
+      try {
+        setClaimTransactionHash("");
+        setLoadingClaim(true);
+        const claimablePhunks = claimablePhunkies
+          .filter((c) => c.claimablePhunkies > 0)
+          .map((c) => +c.phunkId);
+        const approxGas = await phunkyContract.methods
+          .claimBatch(claimablePhunks)
+          .estimateGas({ from: wallet.address });
 
-      const txn = await phunkyContract.methods
-        .claimBatch(claimablePhunks)
-        .send({
-          from: wallet.address,
-          gasLimit: +Math.round(approxGas * 1.2).toFixed(0),
-        });
-
-      console.log(txn);
-      setClaimTransactionHash(txn.transactionHash);
-      setLoadingClaim(false);
+        const txn = await phunkyContract.methods
+          .claimBatch(claimablePhunks)
+          .send({
+            from: wallet.address,
+            gasLimit: +Math.round(approxGas * 1.2).toFixed(0),
+          });
+        setClaimTransactionHash(txn.transactionHash);
+        setLoadingClaim(false);
+      } catch (error) {
+        setClaimTransactionHash("");
+        setLoadingClaim(false);
+      }
     }
   };
 
