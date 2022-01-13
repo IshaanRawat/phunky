@@ -4,7 +4,7 @@ import useMetaMask from "../../hooks/useMetaMask";
 import usePhunksV2Contract from "../../hooks/usePhunksV2Contract";
 import usePhunkyContract from "../../hooks/usePhunkyContract";
 import { formatToDecimals } from "../../utils";
-import { address } from "./../../data/contracts/phunky.json";
+import { address } from "./../../data/contracts/phunky-main.json";
 
 interface PhunkyProviderProps {}
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Contract } from "web3-eth-contract";
-import { abi, address } from "../data/contracts/cryptophunks-v2.json";
+import { abi, address } from "../data/contracts/cryptophunks-v2-main.json";
 import useWeb3 from "./useWeb3";
 
 const usePhunksV2Contract = () => {
