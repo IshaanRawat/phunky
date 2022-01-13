@@ -300,7 +300,7 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
           <div className="flex flex-col p-4">
             <a
               className="p-2 pb-4 flex items-center"
-              href="https://www.twitter.com/phunk_DAO"
+              href="https://www.twitter.com/Phunk_DAO"
               target="_blank"
               rel="noreferrer"
             >
