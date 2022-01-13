@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import usePhunky from "../../../context/phunky";
 import useMetaMask from "../../../hooks/useMetaMask";
 import Button from "../../ui/Button";
@@ -21,19 +21,58 @@ const Home: React.FC<HomeProps> = () => {
     loadingClaim,
     totalPhunky,
   } = usePhunky();
+  const pRef = useRef<HTMLParagraphElement>(null);
 
   const goToClaim = () => {
     claimSectionRef.current?.scrollIntoView();
   };
 
+  useEffect(() => {
+    // set up text to print, each item in array is new line
+    const aText = [
+      "Whenever there is centralisation in the decentralized world,",
+      "Phunks will rise.",
+    ];
+    const iSpeed = 100; // time delay of print out
+    let iIndex = 0; // start printing array at this posision
+    let iArrLength = aText[0].length; // the length of the text array
+    const iScrollAt = 20; // start scrolling up at this many lines
+
+    let iTextPos = 0; // initialise text position
+    let sContents = ""; // initialise contents variable
+    let iRow; // initialise current row
+
+    function typewriter() {
+      sContents = " ";
+      iRow = Math.max(0, iIndex - iScrollAt);
+
+      while (iRow < iIndex) {
+        sContents += aText[iRow++] + "<br />";
+      }
+      if (pRef.current) {
+        pRef.current.innerHTML =
+          sContents + aText[iIndex].substring(0, iTextPos) + "_";
+        if (iTextPos++ === iArrLength) {
+          iTextPos = 0;
+          iIndex++;
+          if (iIndex !== aText.length) {
+            iArrLength = aText[iIndex].length;
+            setTimeout(typewriter, 500);
+          }
+        } else {
+          setTimeout(typewriter, iSpeed);
+        }
+      }
+    }
+
+    typewriter();
+  }, []);
+
   return (
     <main className="flex flex-col items-center px-4">
       <section className="flex flex-col items-center">
         <h1>Introducing $PHUNKY</h1>
-        <p className="mt-8 max-w-lg w-full text-center">
-          Whenever there is centralisation in the decentralized world, Phunks
-          will rise.
-        </p>
+        <p className="mt-8 max-w-2xl w-full text-center" ref={pRef} />
         <div className="flex flex-col sm:flex-row items-center mt-10">
           <Button className="sm:mr-5 sm:mb-0 mr-0 mb-5" onClick={goToClaim}>
             Initiate Claim
