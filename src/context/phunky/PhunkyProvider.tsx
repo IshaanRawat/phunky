@@ -55,7 +55,11 @@ const PhunkyProvider: React.FC<PhunkyProviderProps> = ({ children }) => {
         const _claimablePhunkies: number[] = claimableTokens.map(
           (tokens) => +formatToDecimals(tokens, decimals)
         );
-        setTotalPhunky(_claimablePhunkies.reduce((a, b) => a + b));
+        setTotalPhunky(
+          _claimablePhunkies.length > 0
+            ? _claimablePhunkies.reduce((a, b) => a + b)
+            : 0
+        );
         setClaimablePhunkies(
           phunkTokens.map((token, index) => {
             return {
@@ -103,6 +107,7 @@ const PhunkyProvider: React.FC<PhunkyProviderProps> = ({ children }) => {
         address,
         decimals: +decimals,
         symbol,
+        image: "https://house.cdn.zo.xyz/brand/phunk.jpg",
       };
       const wasAdded = await wallet.watchERC20Asset(assetOptions);
       if (wasAdded) {
