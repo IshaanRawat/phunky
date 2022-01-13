@@ -16,7 +16,7 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
       <div className="flex items-center mt-10">
         <a
           className="mr-6 w-8 h-8"
-          href="https://www.twitter.com/phunks_dao"
+          href="https://www.twitter.com/phunk_DAO"
           target="_blank"
           rel="noreferrer"
         >
