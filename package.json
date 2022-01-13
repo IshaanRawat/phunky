@@ -1,7 +1,7 @@
 {
   "name": "phunky",
   "version": "0.1.0",
-  "homepage": "https://ishaanrawat.github.io/phunky",
+  "homepage": "https://phunkdao.com",
   "private": true,
   "dependencies": {
     "@metamask/detect-provider": "^1.2.0",
