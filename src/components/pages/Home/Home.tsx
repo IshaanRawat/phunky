@@ -236,8 +236,11 @@ const Home: React.FC<HomeProps> = () => {
             It&apos;s natural for user convenience or other reasons that newer
             technologies tend to become centralized. $PHUNKY will empower phunks
             to coordinate, collaborate and take a stand for building the future
-            vision. Whenever there is centralisation in the decentralized world,
-            Phunks will rise.
+            vision.
+          </p>
+          <p className="mt-8 max-w-xl w-full text-center">
+            Whenever there is centralisation in the decentralized world, Phunks
+            will rise.
           </p>
         </article>
       </section>
