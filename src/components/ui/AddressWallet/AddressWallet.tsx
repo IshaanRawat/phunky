@@ -11,7 +11,7 @@ const AddressWallet: React.FC<AddressWalletProps> = () => {
     <div className="flex items-stretch bg-gray-700 px-4 mb-2">
       <div className="flex items-center pr-4 border-r border-p-black">
         <img
-          src="https://nll-v2-1-39luy.ondigitalocean.app/static/phunk0000.png"
+          src="https://www.cryptophunks.com/logo192.png"
           alt=""
           className="w-8 h-8 bg-gray-700 mr-2"
         />
