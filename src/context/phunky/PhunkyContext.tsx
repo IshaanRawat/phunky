@@ -3,6 +3,8 @@ import { createContext } from "react";
 interface PhunkyContextInterface {
   claimSectionRef: any;
   totalPhunky: number;
+  totalAddressPhunks: number;
+  totalAddressPhunky: number;
   loadingEstimate: boolean;
   loadingClaim: boolean;
   loadingAdd: boolean;
@@ -16,6 +18,8 @@ interface PhunkyContextInterface {
 const PhunkyContext = createContext<PhunkyContextInterface>({
   claimSectionRef: null,
   totalPhunky: 0,
+  totalAddressPhunks: 0,
+  totalAddressPhunky: 0,
   loadingEstimate: false,
   loadingClaim: false,
   loadingAdd: false,

@@ -18,6 +18,8 @@ const PhunkyProvider: React.FC<PhunkyProviderProps> = ({ children }) => {
     []
   );
   const [totalPhunky, setTotalPhunky] = useState<number>(0);
+  const [totalAddressPhunks, setTotalAddressPhunks] = useState<number>(0);
+  const [totalAddressPhunky, setTotalAddressPhunky] = useState<number>(0);
   const [loadingEstimate, setLoadingEstimate] = useState<boolean>(true);
   const [loadingClaim, setLoadingClaim] = useState<boolean>(false);
   const [loadingAdd, setLoadingAdd] = useState<boolean>(false);
@@ -28,10 +30,14 @@ const PhunkyProvider: React.FC<PhunkyProviderProps> = ({ children }) => {
     if (wallet.isConnected && phunksV2Contract && phunkyContract) {
       (async () => {
         setLoadingEstimate(true);
-        const balance = await phunksV2Contract.methods
+        const phunksBalance = await phunksV2Contract.methods
           .balanceOf(wallet.address)
           .call();
-        const balanceArray: any[] = Array.from({ length: balance });
+        setTotalAddressPhunks(phunksBalance);
+        const phunkyBalance = await phunkyContract.methods
+          .balanceOf(wallet.address)
+          .call();
+        const balanceArray: any[] = Array.from({ length: phunksBalance });
         const phunkTokens = await Promise.all(
           balanceArray.map((b: number, i: number) =>
             phunksV2Contract.methods
@@ -40,6 +46,7 @@ const PhunkyProvider: React.FC<PhunkyProviderProps> = ({ children }) => {
           )
         );
         const decimals = await phunkyContract.methods.decimals().call();
+        setTotalAddressPhunky(+formatToDecimals(phunkyBalance, decimals));
         const claimableTokens: string[] = await Promise.all(
           phunkTokens.map((token) =>
             phunkyContract.methods.claimable(token).call()
@@ -109,7 +116,9 @@ const PhunkyProvider: React.FC<PhunkyProviderProps> = ({ children }) => {
     <PhunkyContext.Provider
       value={{
         claimSectionRef,
+        totalAddressPhunky,
         totalPhunky,
+        totalAddressPhunks,
         loadingEstimate,
         loadingClaim,
         loadingAdd,
