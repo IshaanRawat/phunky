@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { formatTokenId } from "../../../utils";
 
 interface PhunkCardProps {
@@ -6,13 +6,7 @@ interface PhunkCardProps {
   image?: string;
 }
 
-const PhunkCard: React.FC<PhunkCardProps> = ({ tokenId, image }) => {
-  useEffect(() => {
-    (async () => {
-      console.log(tokenId);
-    })();
-  }, [tokenId]);
-
+const PhunkCard: React.FC<PhunkCardProps> = ({ tokenId }) => {
   return (
     <div className="flex items-center p-2">
       <img
