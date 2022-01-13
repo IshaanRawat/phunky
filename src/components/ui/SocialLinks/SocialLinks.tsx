@@ -7,19 +7,21 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
   const [discordLinksModalVisible, setDiscordLinksModalVisible] =
     useState<boolean>(false);
 
+  const [twitterLinksModalVisible, setTwitterLinksModalVisible] =
+    useState<boolean>(false);
+
   const toggleDiscordLinksModal = () => {
     setDiscordLinksModalVisible((s) => !s);
+  };
+
+  const toggleTwitterLinksModal = () => {
+    setTwitterLinksModalVisible((s) => !s);
   };
 
   return (
     <>
       <div className="flex items-center mt-10">
-        <a
-          className="mr-6 w-8 h-8"
-          href="https://www.twitter.com/phunk_DAO"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <button className="mr-6 w-8 h-8" onClick={toggleTwitterLinksModal}>
           <svg
             width="32"
             height="32"
@@ -33,7 +35,7 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
               fill="#62BDFF"
             />
           </svg>
-        </a>
+        </button>
 
         <button className="mr-6 w-8 h-8" onClick={toggleDiscordLinksModal}>
           <svg
@@ -279,6 +281,39 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
             <a
               className="p-2 pt-4 flex items-center border-t border-gray-600"
               href="https://discord.gg/ckv3ZP4BVQ"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src="https://www.cryptophunks.com/logo192.png"
+                className="w-8 h-8"
+                alt=""
+              />
+              <span className="ml-4">CryptoPhunks</span>
+            </a>
+          </div>
+        </Modal>
+      )}
+
+      {twitterLinksModalVisible && (
+        <Modal title="Twitter Links" close={toggleTwitterLinksModal}>
+          <div className="flex flex-col p-4">
+            <a
+              className="p-2 pb-4 flex items-center"
+              href="https://www.twitter.com/phunk_DAO"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src="https://house.cdn.zo.xyz/brand/phunk.jpg"
+                className="w-8 h-8"
+                alt=""
+              />
+              <span className="ml-4">PhunkDAO</span>
+            </a>
+            <a
+              className="p-2 pt-4 flex items-center border-t border-gray-600"
+              href="https://twitter.com/CryptoPhunksV2"
               target="_blank"
               rel="noreferrer"
             >
